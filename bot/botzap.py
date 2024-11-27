@@ -15,14 +15,14 @@ class ZapBot:
     def AcessarSite(self, link):
         self.driver.get(link)
         print("Aguardando QRCode")
-        sleep(60)
+        sleep(30)
 
     def EnviarMensagem(self, numero, mensagens):
         try:
             # Procurar contato
             url = f"https://web.whatsapp.com/send?phone={numero}"
             self.driver.get(url)
-            sleep(5)
+            sleep(10)
 
             # Mensagem
             mensagem = self.driver.find_element(By.XPATH, '//*[@id="main"]/footer/div[1]/div/span/div/div[2]/div[1]/div/div[1]/p')
@@ -35,7 +35,23 @@ class ZapBot:
             print("Sistema encerrado")
 
 
-nome = "Hugo"
-p1 = ZapBot()
-p1.AcessarSite('https://web.whatsapp.com')
-p1.EnviarMensagem('number', f'Ola {nome}, eu sou a SUN')
+numeros = [
+    {
+        'nome':'Hugo',
+        'numero':'+5571997103182'
+    },
+    {
+        'nome':'Mirian',
+        'numero':'+557199176825'
+    },
+    {
+        'nome':'Isabela',
+        'numero':'+557182383044'
+    },
+]
+
+if __name__ == '__main__':
+    p1 = ZapBot()
+    p1.AcessarSite('https://web.whatsapp.com')
+    for key, contato in enumerate(numeros):
+        p1.EnviarMensagem(contato['numero'],  f"Ola *{contato['nome']}*, eu sou a SUN um BOT de envio de mensagens para ZAP e isso é um teste de envio de mensagens")
